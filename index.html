@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>디아블로4 블랙마켓</title>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+    Kakao.init('db314ae6d456308e311d513c5f54188d');
+  </script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+<div id="overlay"></div>
+<div class="hero-wrapper">
+<a href="https://open.kakao.com/o/gitfLJ8g" target="_blank">
+<button id="order-button"><i class="fas fa-shopping-cart"></i> 카카오톡으로 주문하기</button>
+</a>
+<div id="korean-title">디아블로4 블랙마켓</div>
+</div>
+</header>
+<nav>
+<button id="btn-notice" onclick="loadTab('notice', 'section/notice.html')">공지사항</button>
+<button id="btn-price" onclick="loadTab('price', 'section/price.html')">가격표</button>
+<button id="btn-items" onclick="loadTab('items', 'section/items.html')">개별장비</button>
+<button id="btn-fullbuild" onclick="loadTab('fullbuild', 'section/fullbuild.html')">빌드세팅</button>
+<button id="btn-season8" onclick="loadTab('season8', 'section/season8.html')">시즌가이드</button>
+</nav>
+
+
+
+
+
+<script>
+    const buttons = document.querySelectorAll("nav button");
+    function showTab(id) {
+      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`btn-${id}`).classList.add('active');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('order-button').style.opacity = 1;
+        document.getElementById('korean-title').style.opacity = 1;
+      }, 1000);
+    });
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const overlay = document.getElementById('overlay');
+      const opacity = Math.min(scrollY / 300, 0.6);
+      overlay.style.background = `rgba(0, 0, 0, ${opacity})`;
+    });
+  </script>
+<script>
+function loadTab(id, url) {
+  fetch(url)
+    .then(response => response.text())
+    .then(html => {
+      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+      let container = document.getElementById(id);
+      container.innerHTML = html;
+      container.classList.add('active');
+    });
+}
+</script><div class="tab" id="notice"></div><div class="tab" id="price"></div><div class="tab" id="items"></div><div class="tab" id="fullbuild"></div><div class="tab" id="season8"></div></body>
+</html>
